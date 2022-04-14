@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 function RenderLeader({ leader }) {
   return (
-    <div class="d-flex mt-3">
+    <div key={leader.id} class="d-flex mt-3">
       <div class="flex-shrink-0">
         <img src={leader.image} alt={leader.name} />
       </div>
