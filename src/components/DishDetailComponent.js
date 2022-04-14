@@ -7,7 +7,11 @@ import {
   Row,
   List,
   Container,
+  Breadcrumb,
+  BreadcrumbItem,
 } from "reactstrap";
+
+import { Link } from "react-router-dom";
 
 function RenderDish({ dish }) {
   return (
@@ -49,16 +53,24 @@ function RenderComments({ comments }) {
     return <div></div>;
   }
 }
-const Dishdetail = (props) => {
+function DishDetail(props) {
   if (props.dish != null) {
     return (
       <Container>
+        <Row>
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <Link to="/menu">Menu</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+          </Breadcrumb>
+        </Row>
         <Row>
           <div className="col-12 col-md-5 m-1">
             <RenderDish dish={props.dish} />
           </div>
           <div className="col-12 col-md-5 m-1">
-            <RenderComments comments={props.dish.comments} />
+            <RenderComments comments={props.comments} />
           </div>
         </Row>
       </Container>
@@ -66,6 +78,6 @@ const Dishdetail = (props) => {
   } else {
     return <div></div>;
   }
-};
+}
 
-export default Dishdetail;
+export default DishDetail;
