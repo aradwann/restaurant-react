@@ -9,6 +9,7 @@ import About from "./AboutComponent";
 import { Routes, Route, Navigate, useParams } from "react-router-dom";
 import withRouter from "../shared/withRouter";
 import { connect } from "react-redux";
+import { addComment } from "../redux/ActionCreators";
 
 const mapStatetoProps = (state) => {
   return {
@@ -18,6 +19,11 @@ const mapStatetoProps = (state) => {
     leaders: state.leaders,
   };
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  addComment: (dishId, rating, author, comment) =>
+    dispatch(addComment(dishId, rating, author, comment)),
+});
 
 class Main extends Component {
   render() {
@@ -33,6 +39,7 @@ class Main extends Component {
           comments={this.props.comments.filter(
             (comment) => comment.dishId === parseInt(dishId, 10)
           )}
+          addComment={this.props.addComment}
         />
       );
     };
@@ -72,4 +79,4 @@ class Main extends Component {
   }
 }
 
-export default withRouter(connect(mapStatetoProps)(Main));
+export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(Main));
