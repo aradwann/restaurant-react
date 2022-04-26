@@ -10,12 +10,25 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  Form,
   FormGroup,
   Label,
   Input,
+  FormFeedback,
 } from "reactstrap";
+import { Form, Field } from "react-final-form";
 import { NavLink } from "react-router-dom";
+
+const required = (value) => (value ? undefined : "Required");
+const mustBeNumber = (value) => (isNaN(value) ? "Must be a number" : undefined);
+const minValue = (min) => (value) =>
+  isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
+const composeValidators =
+  (...validators) =>
+    (value) =>
+      validators.reduce(
+        (error, validator) => error || validator(value),
+        undefined
+      );
 
 class Header extends Component {
   constructor(props) {
@@ -41,12 +54,9 @@ class Header extends Component {
       isModalOpen: !this.state.isModalOpen,
     });
   }
-  handleLogin(event) {
+  handleLogin(values) {
     this.toggleModal();
-    alert(
-      `This username: ${this.username.value} Password: ${this.password.value}  Remember me ${this.remember.checked}`
-    );
-    event.preventDefault();
+    alert(JSON.stringify(values, 0, 2));
   }
 
   render() {
@@ -111,38 +121,70 @@ class Header extends Component {
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
           <ModalBody>
-            <Form onSubmit={this.handleLogin}>
-              <FormGroup>
-                <Label htmlFor="username">Username</Label>
-                <Input
-                  type="text"
-                  id="username"
-                  name="username"
-                  innerRef={(input) => (this.username = input)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  type="password"
-                  id="password"
-                  name="password"
-                  innerRef={(input) => (this.password = input)}
-                />
-              </FormGroup>
-              <FormGroup check>
-                <Label check></Label>
-                <Input
-                  type="checkbox"
-                  name="remember"
-                  innerRef={(input) => (this.remember = input)}
-                />
-                Remember me
-              </FormGroup>
-              <Button type="submit" value="submit" className="primary">
-                Login
-              </Button>
-            </Form>
+            <Form
+              onSubmit={this.handleLogin}
+              render={({
+                handleSubmit,
+                form,
+                submitting,
+                pristine,
+                values,
+              }) => (
+                <form onSubmit={handleSubmit}>
+                  <FormGroup>
+                    <Field name="username" validate={required}>
+                      {({ input, meta }) => (
+                        <div>
+                          <Label htmlFor="username">Username</Label>
+                          <Input
+                            {...input}
+                            type="text"
+                            placeholder="Username"
+                            valid={!meta.error}
+                            invalid={meta.error && meta.touched}
+                          />
+                          {meta.error && meta.touched && (
+                            <FormFeedback>{meta.error}</FormFeedback>
+                          )}
+                        </div>
+                      )}
+                    </Field>
+                  </FormGroup>
+                  <FormGroup>
+                    <Field name="password" validate={required}>
+                      {({ input, meta }) => (
+                        <div>
+                          <Label htmlFor="password">Password</Label>
+                          <Input
+                            {...input}
+                            type="password"
+                            placeholder="Password"
+                            valid={!meta.error}
+                            invalid={meta.error && meta.touched}
+                          />
+                          {meta.error && meta.touched && (
+                            <FormFeedback>{meta.error}</FormFeedback>
+                          )}
+                        </div>
+                      )}
+                    </Field>
+                  </FormGroup>
+                  <FormGroup check>
+
+                    <Field name="remember" component="input" type="checkbox" />
+                    <Label check>Remember me</Label>
+                  </FormGroup>
+                  <Button
+                    type="submit"
+                    value="submit"
+                    className="primary"
+                    disabled={submitting}
+                  >
+                    Login
+                  </Button>
+                </form>
+              )}
+            />
           </ModalBody>
         </Modal>
       </React.Fragment>
