@@ -13,15 +13,18 @@ import {
   Modal,
   ModalBody,
   ModalHeader,
-  ModalFooter,
-  Form,
+  FormFeedback,
   FormGroup,
   Label,
   Input,
 } from "reactstrap";
+import { Form, Field } from "react-final-form"
 
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
+
+const required = (value) => (value ? undefined : "Required");
+
 
 class CommentForm extends Component {
   constructor(props) {
@@ -39,70 +42,133 @@ class CommentForm extends Component {
     });
   }
 
-  handleComment(event) {
+  handleComment(values) {
     this.toggleModal();
     this.props.addComment(
       this.props.dishId,
-      this.rating.value,
-      this.author.value,
-      this.comment.value
+      values.rating,
+      values.author,
+      values.comment,
     );
+
   }
   render() {
     return (
-      <>
+      <div>
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
           <ModalBody>
-            <Form onSubmit={this.handleComment}>
-              <FormGroup>
-                <Label htmlFor="rating">Rating</Label>
-                <Input type="select" name="rating" value={this.state.rating}>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </Input>
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="name">Your Name</Label>
-                <Input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={this.state.name}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="comment">Comment</Label>
-                <Input
-                  type="textarea"
-                  id="comment"
-                  name="comment"
-                  rows="6"
-                  value={this.state.comment}
-                />
-              </FormGroup>
-            </Form>
+            <Form onSubmit={this.handleComment}
+
+              render={({
+                handleSubmit,
+                form,
+                submitting,
+                pristine,
+                values,
+              }) => (
+                <form onSubmit={handleSubmit}>
+                  <FormGroup>
+                    <Field name="rating" validate={required}>
+                      {({ input, meta }) => (
+                        <div>
+                          <Label htmlFor="rating">Rating</Label>
+                          <Input
+                            {...input}
+                            type="select"
+
+                            valid={!meta.error}
+                            invalid={meta.error && meta.touched}
+                          >
+                            <option>
+                              1
+                            </option>
+                            <option>
+                              2
+                            </option>
+                            <option>
+                              3
+                            </option>
+                            <option>
+                              4
+                            </option>
+                            <option>
+                              5
+                            </option>
+                          </Input>
+                          {meta.error && meta.touched && (
+                            <FormFeedback>{meta.error}</FormFeedback>
+                          )}
+                        </div>
+                      )}
+                    </Field>
+                  </FormGroup>
+
+                  <FormGroup>
+
+                    <Field name="author" validate={required} >
+                      {({ input, meta }) => (
+                        <div>
+                          <Label htmlFor="author">Your Name</Label>
+                          <Input
+                            {...input}
+                            type="text"
+                            placeholder="Your Name"
+                            valid={!meta.error}
+                            invalid={meta.error && meta.touched}
+                          />
+                          {meta.error && meta.touched && (
+                            <FormFeedback>{meta.error}</FormFeedback>
+                          )}
+                        </div>
+                      )}
+                    </Field>
+                  </FormGroup>
+                  <FormGroup>
+
+                    <Field name="comment" validate={required} >
+                      {({ input, meta }) => (
+                        <div>
+                          <Label htmlFor="comment">Comment</Label>
+                          <Input
+                            {...input}
+                            type="textarea"
+                            placeholder="Comment"
+                            valid={!meta.error}
+                            invalid={meta.error && meta.touched}
+                          />
+                          {meta.error && meta.touched && (
+                            <FormFeedback>{meta.error}</FormFeedback>
+                          )}
+                        </div>
+                      )}
+                    </Field>
+
+                  </FormGroup>
+                  <Button
+                    type="submit"
+                    value="submit"
+                    className="primary"
+                    disabled={submitting}
+                  >
+                    Submit
+                  </Button>
+                </form>
+              )}
+            />
           </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.handleComment}>
-              Submit
-            </Button>
-          </ModalFooter>
         </Modal>
         <Button outline onClick={this.toggleModal}>
           <span className="fa fa-pencil fa-lg"></span> Submit Comment
         </Button>
-      </>
+      </div>
     );
   }
 }
 
 function RenderDish({ dish }) {
   return (
-    <Card>
+    <Card >
       <CardImg top src={dish.image} alt={dish.name} />
       <CardBody>
         <CardTitle>{dish.name}</CardTitle>
@@ -134,7 +200,7 @@ function RenderComments({ comments, addComment, dishId }) {
       <Container>
         <h4>Comments</h4>
         <List type="unstyled">{commentsLi}</List>
-        <CommentForm dishId={dishId} addComment={addComment} />
+        <CommentForm addComment={addComment} dishId={dishId} />
       </Container>
     );
   } else {
@@ -161,7 +227,7 @@ function DishDetail(props) {
             <RenderComments
               comments={props.comments}
               addComment={props.addComment}
-              dishId={props.dish.dishId}
+              dishId={props.dish.id}
             />
           </div>
         </Row>
