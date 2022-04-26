@@ -11,11 +11,11 @@ import { Link } from "react-router-dom";
 
 function RenderLeader({ leader }) {
   return (
-    <div key={leader.id} class="d-flex mt-3">
-      <div class="flex-shrink-0">
+    <div key={leader.id} className="d-flex mt-3">
+      <div className="flex-shrink-0">
         <img src={leader.image} alt={leader.name} />
       </div>
-      <div class="flex-grow-1 ms-3">
+      <div className="flex-grow-1 ms-3">
         <h2>{leader.name}</h2>
         <h5>{leader.designation}</h5>
         <p>{leader.description}</p>

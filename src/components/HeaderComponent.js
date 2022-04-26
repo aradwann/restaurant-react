@@ -108,8 +108,8 @@ class Header extends Component {
           </Navbar>
         </div>
 
-        <div id="jumbotron" class="p-5 mb-4 rounded-3">
-          <div class="container-fluid py-5">
+        <div id="jumbotron" className="p-5 mb-4 rounded-3">
+          <div className="container-fluid py-5">
             <h1>Ristorante con Fusion</h1>
             <p>
               We take inspiration from the World's best cuisines, and create a
