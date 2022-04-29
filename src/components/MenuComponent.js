@@ -10,6 +10,7 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Loading } from "./LoadingComponent";
 
 function RenderMenuItem({ dish }) {
   return (
@@ -25,7 +26,7 @@ function RenderMenuItem({ dish }) {
 }
 
 const Menu = (props) => {
-  const menu = props.dishes.map((dish) => {
+  const menu = props.dishes.dishes.map((dish) => {
     return (
       <div className="col-12 col-md-5 m-1">
         <RenderMenuItem dish={dish} />
@@ -33,23 +34,41 @@ const Menu = (props) => {
     );
   });
 
-  return (
-    <Container>
-      <Row>
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <Link to="/home">Home</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem active>Menu</BreadcrumbItem>
-        </Breadcrumb>
-        <Col>
-          <h3>Menu</h3>
-          <hr />
-        </Col>
-      </Row>
-      <Row>{menu}</Row>
-    </Container>
-  );
+  if (props.dishes.isLoading) {
+    return (
+      <Container>
+        <Row>
+          <Loading />
+        </Row>
+      </Container>
+    );
+  } else if (props.dishes.errMess) {
+    return (
+      <Container>
+        <Row>
+          <h4>{props.dishes.errMess}</h4>
+        </Row>
+      </Container>
+    );
+  } else {
+    return (
+      <Container>
+        <Row>
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <Link to="/home">Home</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem active>Menu</BreadcrumbItem>
+          </Breadcrumb>
+          <Col>
+            <h3>Menu</h3>
+            <hr />
+          </Col>
+        </Row>
+        <Row>{menu}</Row>
+      </Container>
+    );
+  }
 };
 
 export default Menu;

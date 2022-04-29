@@ -18,13 +18,14 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { Form, Field } from "react-final-form"
+import { Form, Field } from "react-final-form";
 
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
 
-const required = (value) => (value ? undefined : "Required");
+import { Loading } from "./LoadingComponent";
 
+const required = (value) => (value ? undefined : "Required");
 
 class CommentForm extends Component {
   constructor(props) {
@@ -48,9 +49,8 @@ class CommentForm extends Component {
       this.props.dishId,
       values.rating,
       values.author,
-      values.comment,
+      values.comment
     );
-
   }
   render() {
     return (
@@ -58,8 +58,8 @@ class CommentForm extends Component {
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
           <ModalBody>
-            <Form onSubmit={this.handleComment}
-
+            <Form
+              onSubmit={this.handleComment}
               render={({
                 handleSubmit,
                 form,
@@ -76,25 +76,14 @@ class CommentForm extends Component {
                           <Input
                             {...input}
                             type="select"
-
                             valid={!meta.error}
                             invalid={meta.error && meta.touched}
                           >
-                            <option>
-                              1
-                            </option>
-                            <option>
-                              2
-                            </option>
-                            <option>
-                              3
-                            </option>
-                            <option>
-                              4
-                            </option>
-                            <option>
-                              5
-                            </option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
                           </Input>
                           {meta.error && meta.touched && (
                             <FormFeedback>{meta.error}</FormFeedback>
@@ -105,8 +94,7 @@ class CommentForm extends Component {
                   </FormGroup>
 
                   <FormGroup>
-
-                    <Field name="author" validate={required} >
+                    <Field name="author" validate={required}>
                       {({ input, meta }) => (
                         <div>
                           <Label htmlFor="author">Your Name</Label>
@@ -125,8 +113,7 @@ class CommentForm extends Component {
                     </Field>
                   </FormGroup>
                   <FormGroup>
-
-                    <Field name="comment" validate={required} >
+                    <Field name="comment" validate={required}>
                       {({ input, meta }) => (
                         <div>
                           <Label htmlFor="comment">Comment</Label>
@@ -143,7 +130,6 @@ class CommentForm extends Component {
                         </div>
                       )}
                     </Field>
-
                   </FormGroup>
                   <Button
                     type="submit"
@@ -168,7 +154,7 @@ class CommentForm extends Component {
 
 function RenderDish({ dish }) {
   return (
-    <Card >
+    <Card>
       <CardImg top src={dish.image} alt={dish.name} />
       <CardBody>
         <CardTitle>{dish.name}</CardTitle>
@@ -208,7 +194,23 @@ function RenderComments({ comments, addComment, dishId }) {
   }
 }
 function DishDetail(props) {
-  if (props.dish != null) {
+  if (props.isLoading) {
+    return (
+      <Container>
+        <Row>
+          <Loading />
+        </Row>
+      </Container>
+    );
+  } else if (props.errMess) {
+    return (
+      <Container>
+        <Row>
+          <h4>{props.errMess}</h4>
+        </Row>
+      </Container>
+    );
+  } else if (props.dish != null) {
     return (
       <Container>
         <Row>
