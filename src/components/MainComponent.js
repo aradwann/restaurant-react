@@ -107,7 +107,7 @@ class Main extends Component {
           <Route path="/contactus" element={<Contact />} />
           <Route
             path="/aboutus"
-            element={<About leaders={this.props.leaders.leaders} />}
+            element={<About leaders={this.props.leaders} />}
           />
           <Route path="*" element={<Navigate replace to="/home" />} />
         </Routes>
