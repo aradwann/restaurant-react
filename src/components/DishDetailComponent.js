@@ -24,6 +24,7 @@ import { Link } from "react-router-dom";
 import React, { Component } from "react";
 
 import { Loading } from "./LoadingComponent";
+import { baseUrl } from "../shared/baseUrl";
 
 const required = (value) => (value ? undefined : "Required");
 
@@ -155,7 +156,7 @@ class CommentForm extends Component {
 function RenderDish({ dish }) {
   return (
     <Card>
-      <CardImg top src={dish.image} alt={dish.name} />
+      <CardImg top src={baseUrl + dish.image} alt={dish.name} />
       <CardBody>
         <CardTitle>{dish.name}</CardTitle>
         <CardText>{dish.description}</CardText>

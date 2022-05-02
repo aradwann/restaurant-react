@@ -9,7 +9,13 @@ import About from "./AboutComponent";
 import { Routes, Route, Navigate, useParams } from "react-router-dom";
 import withRouter from "../shared/withRouter";
 import { connect } from "react-redux";
-import { addComment, fetchDishes } from "../redux/ActionCreators";
+import {
+  addComment,
+  fetchDishes,
+  fetchComments,
+  fetchPromos,
+  fetchLeaders,
+} from "../redux/ActionCreators";
 
 const mapStatetoProps = (state) => {
   return {
@@ -26,11 +32,23 @@ const mapDispatchToProps = (dispatch) => ({
   fetchDishes: () => {
     dispatch(fetchDishes());
   },
+  fetchComments: () => {
+    dispatch(fetchComments());
+  },
+  fetchPromos: () => {
+    dispatch(fetchPromos());
+  },
+  fetchLeaders: () => {
+    dispatch(fetchLeaders());
+  },
 });
 
 class Main extends Component {
   componentDidMount() {
     this.props.fetchDishes();
+    this.props.fetchComments();
+    this.props.fetchPromos();
+    this.props.fetchLeaders();
   }
 
   render() {
@@ -45,9 +63,10 @@ class Main extends Component {
           }
           isLoading={this.props.dishes.isLoading}
           errMess={this.props.dishes.errMess}
-          comments={this.props.comments.filter(
+          comments={this.props.comments.comments.filter(
             (comment) => comment.dishId === parseInt(dishId, 10)
           )}
+          commentsErrMess={this.props.comments.errMess}
           addComment={this.props.addComment}
         />
       );
@@ -67,13 +86,19 @@ class Main extends Component {
                 dishesLoading={this.props.dishes.isLoading}
                 dishesErrMess={this.props.dishes.errMess}
                 promotion={
-                  this.props.promotions.filter(
+                  this.props.promotions.promotions.filter(
                     (promotion) => promotion.featured
                   )[0]
                 }
+                promosLoading={this.props.promotions.isLoading}
+                promosErrMess={this.props.promotions.errMess}
                 leader={
-                  this.props.leaders.filter((leader) => leader.featured)[0]
+                  this.props.leaders.leaders.filter(
+                    (leader) => leader.featured
+                  )[0]
                 }
+                leadersLoading={this.props.leaders.isLoading}
+                leadersErrMess={this.props.leaders.errMess}
               />
             }
           />
@@ -82,7 +107,7 @@ class Main extends Component {
           <Route path="/contactus" element={<Contact />} />
           <Route
             path="/aboutus"
-            element={<About leaders={this.props.leaders} />}
+            element={<About leaders={this.props.leaders.leaders} />}
           />
           <Route path="*" element={<Navigate replace to="/home" />} />
         </Routes>
