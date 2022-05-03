@@ -15,6 +15,7 @@ import {
   fetchComments,
   fetchPromos,
   fetchLeaders,
+  postFeedback,
 } from "../redux/ActionCreators";
 
 const mapStatetoProps = (state) => {
@@ -41,6 +42,26 @@ const mapDispatchToProps = (dispatch) => ({
   fetchLeaders: () => {
     dispatch(fetchLeaders());
   },
+  postFeedback: (
+    firstname,
+    lastname,
+    email,
+    telnum,
+    agree,
+    contactType,
+    feedback
+  ) =>
+    dispatch(
+      postFeedback(
+        firstname,
+        lastname,
+        email,
+        telnum,
+        agree,
+        contactType,
+        feedback
+      )
+    ),
 });
 
 class Main extends Component {
@@ -104,7 +125,10 @@ class Main extends Component {
           />
           <Route path="/menu/:dishId" element={<DishWithId />} />
           <Route path="/menu" element={<Menu dishes={this.props.dishes} />} />
-          <Route path="/contactus" element={<Contact />} />
+          <Route
+            path="/contactus"
+            element={<Contact postFeedback={this.props.postFeedback} />}
+          />
           <Route
             path="/aboutus"
             element={<About leaders={this.props.leaders} />}
