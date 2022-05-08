@@ -18,6 +18,8 @@ import {
   postFeedback,
 } from "../redux/ActionCreators";
 
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+
 const mapStatetoProps = (state) => {
   return {
     dishes: state.dishes,
@@ -96,45 +98,58 @@ class Main extends Component {
     return (
       <div>
         <Header />
-        <Routes>
-          <Route
-            path="/home"
-            element={
-              <Home
-                dish={
-                  this.props.dishes.dishes.filter((dish) => dish.featured)[0]
+        <TransitionGroup>
+          <CSSTransition
+            key={this.props.location.key}
+            classNames="page"
+            timeout={300}
+          >
+            <Routes>
+              <Route
+                path="/home"
+                element={
+                  <Home
+                    dish={
+                      this.props.dishes.dishes.filter(
+                        (dish) => dish.featured
+                      )[0]
+                    }
+                    dishesLoading={this.props.dishes.isLoading}
+                    dishesErrMess={this.props.dishes.errMess}
+                    promotion={
+                      this.props.promotions.promotions.filter(
+                        (promotion) => promotion.featured
+                      )[0]
+                    }
+                    promosLoading={this.props.promotions.isLoading}
+                    promosErrMess={this.props.promotions.errMess}
+                    leader={
+                      this.props.leaders.leaders.filter(
+                        (leader) => leader.featured
+                      )[0]
+                    }
+                    leadersLoading={this.props.leaders.isLoading}
+                    leadersErrMess={this.props.leaders.errMess}
+                  />
                 }
-                dishesLoading={this.props.dishes.isLoading}
-                dishesErrMess={this.props.dishes.errMess}
-                promotion={
-                  this.props.promotions.promotions.filter(
-                    (promotion) => promotion.featured
-                  )[0]
-                }
-                promosLoading={this.props.promotions.isLoading}
-                promosErrMess={this.props.promotions.errMess}
-                leader={
-                  this.props.leaders.leaders.filter(
-                    (leader) => leader.featured
-                  )[0]
-                }
-                leadersLoading={this.props.leaders.isLoading}
-                leadersErrMess={this.props.leaders.errMess}
               />
-            }
-          />
-          <Route path="/menu/:dishId" element={<DishWithId />} />
-          <Route path="/menu" element={<Menu dishes={this.props.dishes} />} />
-          <Route
-            path="/contactus"
-            element={<Contact postFeedback={this.props.postFeedback} />}
-          />
-          <Route
-            path="/aboutus"
-            element={<About leaders={this.props.leaders} />}
-          />
-          <Route path="*" element={<Navigate replace to="/home" />} />
-        </Routes>
+              <Route path="/menu/:dishId" element={<DishWithId />} />
+              <Route
+                path="/menu"
+                element={<Menu dishes={this.props.dishes} />}
+              />
+              <Route
+                path="/contactus"
+                element={<Contact postFeedback={this.props.postFeedback} />}
+              />
+              <Route
+                path="/aboutus"
+                element={<About leaders={this.props.leaders} />}
+              />
+              <Route path="*" element={<Navigate replace to="/home" />} />
+            </Routes>
+          </CSSTransition>
+        </TransitionGroup>
         <Footer />
       </div>
     );
