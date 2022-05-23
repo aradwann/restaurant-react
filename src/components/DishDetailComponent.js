@@ -16,44 +16,46 @@ import {
   FormFeedback,
   FormGroup,
   Label,
-  Input,
-} from "reactstrap";
-import { Form, Field } from "react-final-form";
+  Input
+} from 'reactstrap'
+import { Form, Field } from 'react-final-form'
 
-import { Link } from "react-router-dom";
-import React, { Component } from "react";
+import { Link } from 'react-router-dom'
+import React, { Component } from 'react'
 
-import { Loading } from "./LoadingComponent";
-import { baseUrl } from "../shared/baseUrl";
+import { Loading } from './LoadingComponent'
+import { baseUrl } from '../shared/baseUrl'
 
-const required = (value) => (value ? undefined : "Required");
+const required = (value) => (value ? undefined : 'Required')
 
 class CommentForm extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
-    this.toggleModal = this.toggleModal.bind(this);
-    this.handleComment = this.handleComment.bind(this);
+    this.toggleModal = this.toggleModal.bind(this)
+    this.handleComment = this.handleComment.bind(this)
     this.state = {
-      isModalOpen: false,
-    };
-  }
-  toggleModal() {
-    this.setState({
-      isModalOpen: !this.state.isModalOpen,
-    });
+      isModalOpen: false
+    }
   }
 
-  handleComment(values) {
-    this.toggleModal();
+  toggleModal () {
+    this.setState({
+      isModalOpen: !this.state.isModalOpen
+    })
+  }
+
+  handleComment (values) {
+    this.toggleModal()
     this.props.postComment(
       this.props.dishId,
       values.rating,
       values.author,
       values.comment
-    );
+    )
   }
-  render() {
+
+  render () {
     return (
       <div>
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
@@ -66,7 +68,7 @@ class CommentForm extends Component {
                 form,
                 submitting,
                 pristine,
-                values,
+                values
               }) => (
                 <form onSubmit={handleSubmit}>
                   <FormGroup>
@@ -149,11 +151,11 @@ class CommentForm extends Component {
           <span className="fa fa-pencil fa-lg"></span> Submit Comment
         </Button>
       </div>
-    );
+    )
   }
 }
 
-function RenderDish({ dish }) {
+function RenderDish ({ dish }) {
   return (
     <Card>
       <CardImg top src={baseUrl + dish.image} alt={dish.name} />
@@ -162,39 +164,39 @@ function RenderDish({ dish }) {
         <CardText>{dish.description}</CardText>
       </CardBody>
     </Card>
-  );
+  )
 }
 
-function RenderComments({ comments, postComment, dishId }) {
+function RenderComments ({ comments, postComment, dishId }) {
   if (comments != null) {
     const commentsLi = comments.map((comment) => {
       return (
         <li key={comment.id}>
           {comment.comment}
           <br />
-          --{comment.author},{" "}
-          {new Intl.DateTimeFormat("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "2-digit",
+          --{comment.author},{' '}
+          {new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit'
           }).format(new Date(Date.parse(comment.date)))}
           <br />
           <br />
         </li>
-      );
-    });
+      )
+    })
     return (
       <Container>
         <h4>Comments</h4>
         <List type="unstyled">{commentsLi}</List>
         <CommentForm postComment={postComment} dishId={dishId} />
       </Container>
-    );
+    )
   } else {
-    return <div></div>;
+    return <div></div>
   }
 }
-function DishDetail(props) {
+function DishDetail (props) {
   if (props.isLoading) {
     return (
       <Container>
@@ -202,7 +204,7 @@ function DishDetail(props) {
           <Loading />
         </Row>
       </Container>
-    );
+    )
   } else if (props.errMess) {
     return (
       <Container>
@@ -210,7 +212,7 @@ function DishDetail(props) {
           <h4>{props.errMess}</h4>
         </Row>
       </Container>
-    );
+    )
   } else if (props.dish != null) {
     return (
       <Container>
@@ -235,10 +237,10 @@ function DishDetail(props) {
           </div>
         </Row>
       </Container>
-    );
+    )
   } else {
-    return <div></div>;
+    return <div></div>
   }
 }
 
-export default DishDetail;
+export default DishDetail

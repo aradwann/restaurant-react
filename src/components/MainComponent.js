@@ -1,48 +1,48 @@
-import Menu from "./MenuComponent";
-import { Component } from "react";
-import DishDetail from "./DishDetailComponent";
-import Header from "./HeaderComponent";
-import Footer from "./FooterComponent";
-import Home from "./HomeComponent";
-import Contact from "./ContactComponent";
-import About from "./AboutComponent";
-import { Routes, Route, Navigate, useParams } from "react-router-dom";
-import withRouter from "../shared/withRouter";
-import { connect } from "react-redux";
+import Menu from './MenuComponent'
+import React, { Component } from 'react'
+import DishDetail from './DishDetailComponent'
+import Header from './HeaderComponent'
+import Footer from './FooterComponent'
+import Home from './HomeComponent'
+import Contact from './ContactComponent'
+import About from './AboutComponent'
+import { Routes, Route, Navigate, useParams } from 'react-router-dom'
+import withRouter from '../shared/withRouter'
+import { connect } from 'react-redux'
 import {
   postComment,
   fetchDishes,
   fetchComments,
   fetchPromos,
   fetchLeaders,
-  postFeedback,
-} from "../redux/ActionCreators";
+  postFeedback
+} from '../redux/ActionCreators'
 
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 const mapStatetoProps = (state) => {
   return {
     dishes: state.dishes,
     comments: state.comments,
     promotions: state.promotions,
-    leaders: state.leaders,
-  };
-};
+    leaders: state.leaders
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
   postComment: (dishId, rating, author, comment) =>
     dispatch(postComment(dishId, rating, author, comment)),
   fetchDishes: () => {
-    dispatch(fetchDishes());
+    dispatch(fetchDishes())
   },
   fetchComments: () => {
-    dispatch(fetchComments());
+    dispatch(fetchComments())
   },
   fetchPromos: () => {
-    dispatch(fetchPromos());
+    dispatch(fetchPromos())
   },
   fetchLeaders: () => {
-    dispatch(fetchLeaders());
+    dispatch(fetchLeaders())
   },
   postFeedback: (
     firstname,
@@ -63,20 +63,20 @@ const mapDispatchToProps = (dispatch) => ({
         contactType,
         feedback
       )
-    ),
-});
+    )
+})
 
 class Main extends Component {
-  componentDidMount() {
-    this.props.fetchDishes();
-    this.props.fetchComments();
-    this.props.fetchPromos();
-    this.props.fetchLeaders();
+  componentDidMount () {
+    this.props.fetchDishes()
+    this.props.fetchComments()
+    this.props.fetchPromos()
+    this.props.fetchLeaders()
   }
 
-  render() {
+  render () {
     const DishWithId = () => {
-      let { dishId } = useParams();
+      const { dishId } = useParams()
       return (
         <DishDetail
           dish={
@@ -92,8 +92,8 @@ class Main extends Component {
           commentsErrMess={this.props.comments.errMess}
           postComment={this.props.postComment}
         />
-      );
-    };
+      )
+    }
 
     return (
       <div>
@@ -152,8 +152,8 @@ class Main extends Component {
         </TransitionGroup>
         <Footer />
       </div>
-    );
+    )
   }
 }
 
-export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(Main));
+export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(Main))

@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-function Footer(props) {
+function Footer (props) {
   return (
     <div className="footer">
       <div className="container">
@@ -36,7 +36,7 @@ function Footer(props) {
               <br />
               <i className="fa fa-fax fa-lg"></i>: +852 8765 4321
               <br />
-              <i className="fa fa-envelope fa-lg"></i>:{" "}
+              <i className="fa fa-envelope fa-lg"></i>:{' '}
               <a href="mailto:confusion@food.net">confusion@food.net</a>
             </address>
           </div>
@@ -85,7 +85,7 @@ function Footer(props) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Footer;
+export default Footer

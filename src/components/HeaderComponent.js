@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Nav,
   Navbar,
@@ -13,53 +13,54 @@ import {
   FormGroup,
   Label,
   Input,
-  FormFeedback,
-} from "reactstrap";
-import { Form, Field } from "react-final-form";
-import { NavLink } from "react-router-dom";
+  FormFeedback
+} from 'reactstrap'
+import { Form, Field } from 'react-final-form'
+import { NavLink } from 'react-router-dom'
 
-const required = (value) => (value ? undefined : "Required");
-const mustBeNumber = (value) => (isNaN(value) ? "Must be a number" : undefined);
-const minValue = (min) => (value) =>
-  isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
-const composeValidators =
-  (...validators) =>
-    (value) =>
-      validators.reduce(
-        (error, validator) => error || validator(value),
-        undefined
-      );
+const required = (value) => (value ? undefined : 'Required')
+// const mustBeNumber = (value) => (isNaN(value) ? 'Must be a number' : undefined)
+// const minValue = (min) => (value) =>
+//   isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`
+// const composeValidators =
+//   (...validators) =>
+//     (value) =>
+//       validators.reduce(
+//         (error, validator) => error || validator(value),
+//         undefined
+//       )
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
-    this.toggleNav = this.toggleNav.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
+    this.toggleNav = this.toggleNav.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
     this.state = {
       isNavOpen: false,
-      isModalOpen: false,
-    };
+      isModalOpen: false
+    }
   }
 
-  toggleNav() {
+  toggleNav () {
     this.setState({
-      isNavOpen: !this.state.isNavOpen,
-    });
+      isNavOpen: !this.state.isNavOpen
+    })
   }
 
-  toggleModal() {
+  toggleModal () {
     this.setState({
-      isModalOpen: !this.state.isModalOpen,
-    });
-  }
-  handleLogin(values) {
-    this.toggleModal();
-    alert(JSON.stringify(values, 0, 2));
+      isModalOpen: !this.state.isModalOpen
+    })
   }
 
-  render() {
+  handleLogin (values) {
+    this.toggleModal()
+    alert(JSON.stringify(values, 0, 2))
+  }
+
+  render () {
     return (
       <React.Fragment>
         <div>
@@ -112,7 +113,7 @@ class Header extends Component {
           <div className="container-fluid py-5">
             <h1>Ristorante con Fusion</h1>
             <p>
-              We take inspiration from the World's best cuisines, and create a
+              We take inspiration from the World&quot;s best cuisines, and create a
               unique fusion experience. Our lipsmacking creations will tickle
               your culinary senses!
             </p>
@@ -128,7 +129,7 @@ class Header extends Component {
                 form,
                 submitting,
                 pristine,
-                values,
+                values
               }) => (
                 <form onSubmit={handleSubmit}>
                   <FormGroup>
@@ -188,8 +189,8 @@ class Header extends Component {
           </ModalBody>
         </Modal>
       </React.Fragment>
-    );
+    )
   }
 }
 
-export default Header;
+export default Header

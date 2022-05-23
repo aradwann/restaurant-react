@@ -1,15 +1,15 @@
-import "./App.css";
-import Main from "./components/MainComponent";
-import { Component } from "react";
+import './App.css'
+import Main from './components/MainComponent'
+import React, { Component } from 'react'
 
 class App extends Component {
-  render() {
+  render () {
     return (
       <div>
         <Main />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

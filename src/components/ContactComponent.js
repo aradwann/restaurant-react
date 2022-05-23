@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   Row,
   Col,
@@ -9,20 +9,20 @@ import {
   Container,
   Label,
   Input,
-  FormFeedback,
-} from "reactstrap";
-import { Link } from "react-router-dom";
-import { Form, Field } from "react-final-form";
+  FormFeedback
+} from 'reactstrap'
+import { Link } from 'react-router-dom'
+import { Form, Field } from 'react-final-form'
 
-const required = (value) => (value ? undefined : "Required");
+const required = (value) => (value ? undefined : 'Required')
 
 class FeedbackForm extends Component {
-  constructor(props) {
-    super(props);
-    this.handleFeedback = this.handleFeedback.bind(this);
+  constructor (props) {
+    super(props)
+    this.handleFeedback = this.handleFeedback.bind(this)
   }
 
-  handleFeedback(values) {
+  handleFeedback (values) {
     this.props.postFeedback(
       values.firstname,
       values.lastname,
@@ -31,10 +31,11 @@ class FeedbackForm extends Component {
       values.agree,
       values.contactType,
       values.feedback
-    );
-    alert(JSON.stringify(values));
+    )
+    alert(JSON.stringify(values))
   }
-  render() {
+
+  render () {
     return (
       <Form
         onSubmit={this.handleFeedback}
@@ -192,11 +193,11 @@ class FeedbackForm extends Component {
           </form>
         )}
       />
-    );
+    )
   }
 }
 
-function Contact(props) {
+function Contact (props) {
   return (
     <Container>
       <Row>
@@ -228,7 +229,7 @@ function Contact(props) {
             <br />
             <i className="fa fa-fax"></i>: +852 8765 4321
             <br />
-            <i className="fa fa-envelope"></i>:{" "}
+            <i className="fa fa-envelope"></i>:{' '}
             <a href="mailto:confusion@food.net">confusion@food.net</a>
           </address>
         </div>
@@ -266,7 +267,7 @@ function Contact(props) {
         </div>
       </div>
     </Container>
-  );
+  )
 }
 
-export default Contact;
+export default Contact

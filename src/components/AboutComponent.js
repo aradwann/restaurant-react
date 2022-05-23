@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,13 +7,13 @@ import {
   CardHeader,
   Media,
   Container,
-  Row,
-} from "reactstrap";
-import { Link } from "react-router-dom";
-import { baseUrl } from "../shared/baseUrl";
-import { Loading } from "./LoadingComponent";
+  Row
+} from 'reactstrap'
+import { Link } from 'react-router-dom'
+import { baseUrl } from '../shared/baseUrl'
+import { Loading } from './LoadingComponent'
 
-function RenderLeader({ leader }) {
+function RenderLeader ({ leader }) {
   return (
     <div key={leader.id} className="d-flex mt-3">
       <div className="flex-shrink-0">
@@ -25,10 +25,10 @@ function RenderLeader({ leader }) {
         <p>{leader.description}</p>
       </div>
     </div>
-  );
+  )
 }
 
-function LeadersList({ leaders }) {
+function LeadersList ({ leaders }) {
   if (leaders.isLoading) {
     return (
       <Container>
@@ -36,7 +36,7 @@ function LeadersList({ leaders }) {
           <Loading />
         </Row>
       </Container>
-    );
+    )
   } else if (leaders.errMess) {
     return (
       <Container>
@@ -44,16 +44,16 @@ function LeadersList({ leaders }) {
           <h4>{leaders.errMess}</h4>
         </Row>
       </Container>
-    );
+    )
   } else {
     const renderedLeaders = leaders.leaders.map((leader) => {
-      return <RenderLeader leader={leader} />;
-    });
-    return <Media list>{renderedLeaders}</Media>;
+      return <RenderLeader key={leader.id} leader={leader} />
+    })
+    return <Media list>{renderedLeaders}</Media>
   }
 }
 
-function About(props) {
+function About (props) {
   return (
     <div className="container">
       <div className="row">
@@ -80,9 +80,9 @@ function About(props) {
             will arrive on your plate the next time you visit us.
           </p>
           <p>
-            The restaurant traces its humble beginnings to{" "}
+            The restaurant traces its humble beginnings to{' '}
             <em>The Frying Pan</em>, a successful chain started by our CEO, Mr.
-            Peter Pan, that featured for the first time the world's best
+            Peter Pan, that featured for the first time the world&quot;s best
             cuisines in a pan.
           </p>
         </div>
@@ -97,7 +97,7 @@ function About(props) {
                 <dd className="col-6">3 Feb. 2013</dd>
                 <dt className="col-6">Major Stake Holder</dt>
                 <dd className="col-6">HK Fine Foods Inc.</dd>
-                <dt className="col-6">Last Year's Turnover</dt>
+                <dt className="col-6">Last Year&quot;s Turnover</dt>
                 <dd className="col-6">$1,250,375</dd>
                 <dt className="col-6">Employees</dt>
                 <dd className="col-6">40</dd>
@@ -110,7 +110,7 @@ function About(props) {
             <CardBody className="bg-faded">
               <blockquote className="blockquote">
                 <p className="mb-0">
-                  You better cut the pizza in four pieces because I'm not hungry
+                  You better cut the pizza in four pieces because I&quot;m not hungry
                   enough to eat six.
                 </p>
                 <footer className="blockquote-footer">
@@ -134,7 +134,7 @@ function About(props) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default About;
+export default About

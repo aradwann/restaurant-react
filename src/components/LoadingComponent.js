@@ -1,5 +1,5 @@
-import React from "react";
-import { Col, Spinner } from "reactstrap";
+import React from 'react'
+import { Col, Spinner } from 'reactstrap'
 
 export const Loading = (props) => {
   return (
@@ -8,5 +8,5 @@ export const Loading = (props) => {
         Loading...
       </Spinner>
     </Col>
-  );
-};
+  )
+}
