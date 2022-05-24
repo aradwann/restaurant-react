@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# Restuarant React
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a react client for a restaurant app server which have the following components:
+ - Home page
+ - about us page
+ - menu page :
+     - dish page
+ - contact us page
+ - login modal
+  ![Alt Text](./chrome-capture-2022-4-24.gif)
 
 ## Available Scripts
 
@@ -13,6 +21,17 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+## server start
+I use json-server as mocking server and pnpm as package manger, 
+if you are in the json-server directory you can use the following line to start it 
+with listening to port 3001 and a response delay time 2 seconds
+
+`pnpm json-server db.json -p 3001 -d 2000`
+
+or
+
+`npx json-server db.json -p 3001 -d 2000`
 
 ### `npm test`
 
