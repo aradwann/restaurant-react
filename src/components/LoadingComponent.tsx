@@ -1,7 +1,7 @@
 import React from 'react'
 import { Col, Spinner } from 'reactstrap'
 
-export const Loading = (props) => {
+export const Loading = () => {
   return (
     <Col>
       <Spinner color="primary" type="grow">
