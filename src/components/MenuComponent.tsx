@@ -13,8 +13,13 @@ import {
 import { Link } from 'react-router-dom'
 import { Loading } from './LoadingComponent'
 import { baseUrl } from '../shared/baseUrl'
+type Dish = {
+  id:number,
+  image:string,
+  name:string
+}
 
-function RenderMenuItem ({ dish }) {
+function RenderMenuItem ({ dish }: any) {
   return (
     <Card key={dish.id}>
       <Link to={`/menu/${dish.id}`}>
@@ -27,7 +32,7 @@ function RenderMenuItem ({ dish }) {
   )
 }
 
-const Menu = (props) => {
+const Menu = (props: { dishes: { dishes: Dish[]; isLoading: any; errMess: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined } }) => {
   const menu = props.dishes.dishes.map((dish) => {
     return (
       <div key={dish.id} className="col-12 col-md-5 m-1">

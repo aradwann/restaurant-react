@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes'
 
-export const Comments = (state = { errMess: null, comments: [] }, action) => {
+const Comments = (state = { errMess: null, comments: [] }, action: { type: any; payload: ConcatArray<never> }) => {
   switch (action.type) {
     case ActionTypes.ADD_COMMENTS:
       return {
@@ -23,3 +23,5 @@ export const Comments = (state = { errMess: null, comments: [] }, action) => {
       return state
   }
 }
+
+export default Comments
